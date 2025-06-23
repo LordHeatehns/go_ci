@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  lead-raptor-api:
+    platform: linux/amd64
+    build:
+      context: ./
+    image: asia.gcr.io/sunteen-dev/atm/go_project_structure_be:v1.32.30sec
+    ports:
+      - 8855:8855
+    environment:
+      - DB_PROVIDER=${DB_PROVIDER}
+      - DB_HOST=${DB_HOST}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_PORT=${DB_PORT}
+      - SSL_MODE=${SSL_MODE}
+      - CONNECTION_MAX_LIFE_TIME=${CONNECTION_MAX_LIFE_TIME}
+      - MAX_IDEL_CONNS=${MAX_IDEL_CONNS}
+      - MAX_OPEN_CONNS=${MAX_OPEN_CONNS}
+      - MAX_IDLE_TIME=${MAX_IDLE_TIME}
+      - ACCESS_TOKEN_MAX_AGE=${ACCESS_TOKEN_MAX_AGE}
+      - SECRET_TOKEN=${SECRET_TOKEN}
+      - SIM_QTY=${SIM_QTY}
+     

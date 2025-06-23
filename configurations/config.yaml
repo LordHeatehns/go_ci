@@ -1,0 +1,9 @@
+port: 8855
+
+initial-scripts:
+  - "./scripts/users.sql"
+  - "./scripts/roles.sql"
+  - "./scripts/verifying_phone_numbers.sql"
+  - "./scripts/upload_phone.sql"
+  - "./scripts/log_websocket.sql"
+
