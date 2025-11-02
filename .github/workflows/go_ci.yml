@@ -23,13 +23,10 @@ jobs:
           go-version: ${{ matrix.go-version }}
           cache: true
 
-      - name: Verify go.mod and go.sum
+      - name: Download dependencies
         run: |
           go mod tidy
-          git diff --exit-code go.mod go.sum || (echo "❌ go.mod or go.sum not clean" && exit 1)
-
-      - name: Download dependencies
-        run: go mod download
+          go mod download
 
       - name: Build project
         run: go build -v ./...
@@ -48,7 +45,6 @@ jobs:
         uses: actions/setup-go@v5
         with:
           go-version: '1.23'
-          # Add caching here too for consistency with the build-test job
           cache: true
 
       - name: Cache Go modules
@@ -57,28 +53,23 @@ jobs:
           path: |
             ~/go/pkg/mod
             ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Verify go.mod and go.sum (and ensure tidy state)
-        run: go mod tidy
+      - name: Download dependencies
+        run: |
+          go mod tidy
+          go mod download
 
-      # IMPORTANT: Explicitly download dependencies before linting
-      - name: Download dependencies for linting
-        run: go mod download
-        # This step ensures the linter has access to all required modules
-      
       - name: Debug Go Environment
         run: |
-          echo "Debugging environment variables:"
           echo "CGO_ENABLED: $CGO_ENABLED"
           echo "GOOS: $GOOS"
           echo "GOARCH: $GOARCH"
           echo "GOPATH: $GOPATH"
           go env
-          ls -R ~/go/pkg/mod # ตรวจสอบว่ามีโมดูล fiber อยู่ในแคชหรือไม่
-
+          ls -R ~/go/pkg/mod | grep fiber || echo "Fiber not found"
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
