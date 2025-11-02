@@ -68,6 +68,17 @@ jobs:
       - name: Download dependencies for linting
         run: go mod download
         # This step ensures the linter has access to all required modules
+      
+      - name: Debug Go Environment
+        run: |
+          echo "Debugging environment variables:"
+          echo "CGO_ENABLED: $CGO_ENABLED"
+          echo "GOOS: $GOOS"
+          echo "GOARCH: $GOARCH"
+          echo "GOPATH: $GOPATH"
+          go env
+          ls -R ~/go/pkg/mod # ตรวจสอบว่ามีโมดูล fiber อยู่ในแคชหรือไม่
+
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
