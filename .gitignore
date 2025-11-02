@@ -1,7 +1,6 @@
 
 *.exe
 __debug_*
-go.mod
 test.py
 test.http
 logs/
