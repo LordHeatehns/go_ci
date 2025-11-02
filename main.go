@@ -10,7 +10,6 @@ import (
 	"go_project_structure_be/servers"
 	"os"
 	"os/signal"
-	"path/filepath"
 	"syscall"
 
 	"github.com/gofiber/fiber/v2/log"
@@ -18,6 +17,8 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 )
+
+var testlinter_unused = "334343"
 
 func main() {
 	app := fiber.New()
@@ -46,17 +47,6 @@ func main() {
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
-
-	executablePath, err := os.Executable()
-	if err != nil {
-		fmt.Println("Error getting executable path:", err)
-		return
-	}
-
-	// Extract the base name (program name)
-	appName := filepath.Base(executablePath)
-
-	fmt.Println("App Name:", appName)
 
 	go func() {
 		app.Listen(":" + conf.Conf.Port)

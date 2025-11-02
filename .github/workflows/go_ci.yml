@@ -1,7 +1,7 @@
-# This workflow will build a golang project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-go
+# This workflow builds and tests a Go project, incorporating best practices
+# such as caching, a build matrix, and linting.
 
-name: Go
+name: Go Build and Test
 
 on:
   push:
@@ -10,19 +10,49 @@ on:
     branches: [ "main" ]
 
 jobs:
-
-  build:
+  build-test:
+    # Use a matrix strategy to test across multiple Go versions
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go-version: [ '1.21', '1.22', '1.23', '1.24' ] # Test with multiple supported versions
+
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-    - name: Set up Go
-      uses: actions/setup-go@v4
+    - name: Set up Go ${{ matrix.go-version }}
+      uses: actions/setup-go@v5 # Use the latest version of setup-go
       with:
-        go-version: '1.24'
+        go-version: ${{ matrix.go-version }}
+        # Enable caching for Go modules
+        cache: true
 
-    - name: Build
+    - name: Download Go modules
+      run: go mod download
+
+    - name: Build project
       run: go build -v ./...
 
-    - name: Test
-      run: go test ./...  -v 
+    - name: Run tests
+      run: go test -v ./... -race -coverprofile=coverage.out -covermode=atomic
+
+  # Optional: Add a separate job for linting and static analysis
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.24' # Use the current stable version for linting
+
+      - name: Install static analysis tools (e.g., golangci-lint)
+        # Use a popular action for easy installation and running
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.58.1 # Specify a version
+          args: --verbose
+
