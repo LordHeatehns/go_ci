@@ -6,6 +6,7 @@ import (
 	"testing"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/log"
 	"github.com/stretchr/testify/assert"
 
 	"go_project_structure_be/handler"
@@ -32,7 +33,9 @@ func TestGetUsers_Success(t *testing.T) {
 	assert.Equal(t, 200, resp.StatusCode)
 
 	var body map[string]interface{}
-	json.NewDecoder(resp.Body).Decode(&body)
+	if err := json.NewDecoder(resp.Body).Decode(&body); err != nil {
+		log.Error(err)
+	}
 
 	assert.Equal(t, true, body["success"])
 	assert.Equal(t, "success", body["message"])

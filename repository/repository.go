@@ -1,11 +1,8 @@
 package repository
 
 import (
-	"fmt"
-	"go_project_structure_be/bindings"
 	"go_project_structure_be/servers"
 
-	"github.com/Masterminds/squirrel"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -41,25 +38,25 @@ func (repo *repository) BeginX() (*sqlx.Tx, error) {
 	return tx, err
 }
 
-func queryOptionBuilder(searchQuery squirrel.SelectBuilder, option bindings.IQueryOption) squirrel.SelectBuilder {
-	if option != nil {
-		if option.GetLimit() > 0 {
-			searchQuery = searchQuery.Limit(uint64(option.GetLimit()))
-		}
-		if option.GetOffset() > 0 {
-			searchQuery = searchQuery.Offset(uint64(option.GetOffset()))
-		}
+// func queryOptionBuilder(searchQuery squirrel.SelectBuilder, option bindings.IQueryOption) squirrel.SelectBuilder {
+// 	if option != nil {
+// 		if option.GetLimit() > 0 {
+// 			searchQuery = searchQuery.Limit(uint64(option.GetLimit()))
+// 		}
+// 		if option.GetOffset() > 0 {
+// 			searchQuery = searchQuery.Offset(uint64(option.GetOffset()))
+// 		}
 
-		//sorting
-		if len(option.GetSort()) > 0 {
-			orders := make([]string, 0)
-			for _, order := range option.GetSort() {
-				orderStr := fmt.Sprintf("%s %s", order.GetField(), string(order.GetOrder()))
-				orders = append(orders, orderStr)
-			}
-			searchQuery = searchQuery.OrderBy(orders...)
-		}
-	}
+// 		//sorting
+// 		if len(option.GetSort()) > 0 {
+// 			orders := make([]string, 0)
+// 			for _, order := range option.GetSort() {
+// 				orderStr := fmt.Sprintf("%s %s", order.GetField(), string(order.GetOrder()))
+// 				orders = append(orders, orderStr)
+// 			}
+// 			searchQuery = searchQuery.OrderBy(orders...)
+// 		}
+// 	}
 
-	return searchQuery
-}
+// 	return searchQuery
+// }

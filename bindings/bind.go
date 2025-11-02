@@ -1,8 +1,6 @@
 package bindings
 
 import (
-	"errors"
-	"fmt"
 	"go_project_structure_be/util"
 	"math"
 	"strings"
@@ -171,7 +169,7 @@ func (option *QueryOption) GetOffset() int {
 
 func (option *QueryOption) GetSort() []IQueryOrder {
 	iQueryOrders := make([]IQueryOrder, 0)
-	for idx, _ := range option.Sort {
+	for idx := range option.Sort {
 		iQueryOrders = append(iQueryOrders, &option.Sort[idx])
 	}
 	return iQueryOrders
@@ -204,7 +202,7 @@ func (req *FilterRequest) ToMap() map[string]any {
 
 func (req *FilterRequest) GetFilters() []IQueryFilter {
 	var filters []IQueryFilter
-	for idx, _ := range req.Filters {
+	for idx := range req.Filters {
 		filters = append(filters, &req.Filters[idx])
 	}
 	return filters
@@ -218,9 +216,10 @@ func (req *FilterRequest) GetOption() IQueryOption {
 	return &req.Option
 }
 
-func newError(code, message string) string {
-	return fmt.Sprintf("%v=%v", code, message)
-}
-func newErrorsJoin(errs []string) error {
-	return errors.New(strings.Join(errs, " and "))
-}
+// func newError(code, message string) string {
+// 	return fmt.Sprintf("%v=%v", code, message)
+// }
+
+// func newErrorsJoin(errs []string) error {
+// 	return errors.New(strings.Join(errs, " and "))
+// }

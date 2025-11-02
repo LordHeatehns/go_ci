@@ -49,7 +49,9 @@ func main() {
 	signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)
 
 	go func() {
-		app.Listen(":" + conf.Conf.Port)
+		if err := app.Listen(":" + conf.Conf.Port); err != nil {
+			log.Fatal(err)
+		}
 	}()
 
 	<-c
