@@ -47,12 +47,10 @@ jobs:
           go-version: '1.23'
           cache: true
 
-      - name: Download dependencies before linting
+      - name: Prepare dependencies for lint
         run: |
           go mod tidy
           go mod download
-          ls -l go.mod go.sum
-          grep testify go.mod || echo "⚠️ testify not found in go.mod"
 
       - name: Cache Go modules
         uses: actions/cache@v4
@@ -60,19 +58,16 @@ jobs:
           path: |
             ~/go/pkg/mod
             ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('go.sum') }}
+          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             ${{ runner.os }}-go-
-
-      - name: Verify testify module presence
-        run: |
-          grep testify go.mod && echo "✅ testify found"
-          ls -R ~/go/pkg/mod | grep testify || echo "⚠️ testify not in cache"
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
         with:
           version: v1.58.1
+          # 🟢 ensure golangci-lint sees modules
           args: --timeout=5m --verbose
         env:
           CGO_ENABLED: 1
+          GO111MODULE: on
