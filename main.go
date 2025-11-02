@@ -18,7 +18,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-var testlinter_unused = "3"
+var testlinter_unused = "ggez"
 
 func main() {
 	app := fiber.New()
