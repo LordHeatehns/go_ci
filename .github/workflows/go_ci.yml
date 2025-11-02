@@ -47,6 +47,13 @@ jobs:
           go-version: '1.23'
           cache: true
 
+      - name: Download dependencies before linting
+        run: |
+          go mod tidy
+          go mod download
+          ls -l go.mod go.sum
+          grep testify go.mod || echo "⚠️ testify not found in go.mod"
+
       - name: Cache Go modules
         uses: actions/cache@v4
         with:
@@ -57,19 +64,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
-      - name: Download dependencies
+      - name: Verify testify module presence
         run: |
-          go mod tidy
-          go mod download
-
-      - name: Debug Go Environment
-        run: |
-          echo "CGO_ENABLED: $CGO_ENABLED"
-          echo "GOOS: $GOOS"
-          echo "GOARCH: $GOARCH"
-          echo "GOPATH: $GOPATH"
-          go env
-          ls -R ~/go/pkg/mod | grep fiber || echo "Fiber not found"
+          grep testify go.mod && echo "✅ testify found"
+          ls -R ~/go/pkg/mod | grep testify || echo "⚠️ testify not in cache"
 
       - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v6
