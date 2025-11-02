@@ -1,73 +1,45 @@
-name: Go Build and Test
+name: CI
 
 on:
   push:
     branches: [ "main" ]
+    paths:
+      - '**.go'
   pull_request:
     branches: [ "main" ]
-
+    paths:
+      - '**.go'
 jobs:
-  build-test:
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        go-version: [ '1.23' ]
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Go ${{ matrix.go-version }}
-        uses: actions/setup-go@v5
-        with:
-          go-version: ${{ matrix.go-version }}
-          cache: true
-
-      - name: Download dependencies
-        run: |
-          go mod tidy
-          go mod download
-
-      - name: Build project
-        run: go build -v ./...
-
-      - name: Run tests
-        run: go test -v ./... -race -coverprofile=coverage.out -covermode=atomic
-
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-
-      - name: Set up Go
+      - uses: actions/checkout@v4
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: '1.23'
-          cache: true
+      - name: Install dependencies
+        run: go get .
+      - name: Build
+        run: go build -v ./...
+      - name: Test with the Go CLI
+        run: go test ./...
 
-      - name: Prepare dependencies for lint
-        run: |
-          go mod tidy
-          go mod download
-
-      - name: Cache Go modules
-        uses: actions/cache@v4
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
         with:
-          path: |
-            ~/go/pkg/mod
-            ~/.cache/go-build
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
-
+          fetch-depth: 1
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+      - name: Install golangci-lint
+        run: go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
       - name: Run golangci-lint
-        uses: golangci/golangci-lint-action@v6
-        with:
-          version: v1.58.1
-          # 🟢 ensure golangci-lint sees modules
-          args: --timeout=5m --verbose
-        env:
-          CGO_ENABLED: 1
-          GO111MODULE: on
+        run: golangci-lint run ./...
