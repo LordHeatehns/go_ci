@@ -2,7 +2,6 @@
 *.exe
 __debug_*
 go.mod
-go.sum
 test.py
 test.http
 logs/
