@@ -2,12 +2,12 @@ package util
 
 import (
 	"encoding/json"
+	"errors"
 	"math"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/gofiber/fiber/v2"
 	"github.com/segmentio/ksuid"
 )
 
@@ -83,7 +83,7 @@ func CeliNumber(numerator int64, denominator int64) int64 {
 
 func GetToken(token string) (string, error) {
 	if !strings.HasPrefix(token, "Bearer ") {
-		return "", fiber.ErrUnauthorized
+		return "", errors.New("invalid token")
 	}
 
 	// Remove "Bearer " prefix and return the token
