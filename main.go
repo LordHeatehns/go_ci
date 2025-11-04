@@ -48,7 +48,7 @@ func main() {
 
 	go func() {
 		if err := app.Listen(":" + conf.Conf.Port); err != nil {
-			log.Fatal(err)
+			log.Error(err)
 		}
 	}()
 
