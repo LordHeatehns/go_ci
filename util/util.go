@@ -153,5 +153,3 @@ func GetToken(token string) (string, error) {
 // 	}
 // 	return cacheKey
 // }
-
-//test
