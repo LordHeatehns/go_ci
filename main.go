@@ -18,7 +18,6 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-// ok
 func main() {
 	app := fiber.New()
 	conf, err := configurations.LoadConfigFile()
