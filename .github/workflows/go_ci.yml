@@ -27,6 +27,8 @@ jobs:
         run: go test ./...
       - name: Debug username
         run: echo "DOCKER_USERNAME ${{ secrets.DOCKER_USERNAME }}"
+      - name: Debug token
+        run: echo "DOCKER_TOKEN ${{ secrets.DOCKER_TOKEN }}"
 
   lint:
     name: Lint
