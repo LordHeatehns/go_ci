@@ -25,6 +25,8 @@ jobs:
         run: go build -v ./...
       - name: Test with the Go CLI
         run: go test ./...
+      - name: Debug username
+        run: echo "Docker username is: ${{ secrets.DOCKER_USERNAME }}"
 
   lint:
     name: Lint
