@@ -86,10 +86,12 @@ func GetToken(token string) (string, error) {
 		return "", errors.New("invalid token")
 	}
 
-	// Remove "Bearer " prefix and return the token
+	//Remove "Bearer " prefix and return the token
 	token = strings.TrimPrefix(token, "Bearer ")
 	return token, nil
 }
+
+//ok
 
 // func Key(s string) string {
 // 	conf, err := configuration.LoadConfigFile()
