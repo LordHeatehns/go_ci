@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"go_project_structure_be/handler"
-	middlewares "go_project_structure_be/middleware"
+	"go_ci/handler"
+	middlewares "go_ci/middleware"
 
 	"github.com/gofiber/fiber/v2"
 )

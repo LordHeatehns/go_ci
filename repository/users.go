@@ -1,6 +1,6 @@
 package repository
 
-import "go_project_structure_be/responses"
+import "go_ci/responses"
 
 type UsersRepository interface {
 	GetUser() (*responses.Users, error)

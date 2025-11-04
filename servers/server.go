@@ -1,8 +1,8 @@
 package servers
 
 import (
-	"go_project_structure_be/configurations"
-	"go_project_structure_be/initial"
+	"go_ci/configurations"
+	"go_ci/initial"
 
 	"github.com/gorilla/websocket"
 	"github.com/jmoiron/sqlx"

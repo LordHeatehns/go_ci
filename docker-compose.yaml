@@ -4,7 +4,7 @@ services:
     platform: linux/amd64
     build:
       context: ./
-    image: asia.gcr.io/sunteen-dev/atm/go_project_structure_be:v1.32.30sec
+    image: asia.gcr.io/sunteen-dev/atm/go_ci:v1.32.30sec
     ports:
       - 8855:8855
     environment:

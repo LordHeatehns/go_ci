@@ -2,8 +2,8 @@ package initial
 
 import (
 	"fmt"
-	"go_project_structure_be/configurations"
-	"go_project_structure_be/util"
+	"go_ci/configurations"
+	"go_ci/util"
 	"net/url"
 	"os"
 	"strings"

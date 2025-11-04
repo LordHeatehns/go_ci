@@ -1,7 +1,7 @@
 package bindings
 
 import (
-	"go_project_structure_be/util"
+	"go_ci/util"
 	"math"
 	"strings"
 )

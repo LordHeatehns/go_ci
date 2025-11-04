@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"go_project_structure_be/configurations"
-	"go_project_structure_be/handler"
-	"go_project_structure_be/initial"
-	middlewares "go_project_structure_be/middleware"
-	"go_project_structure_be/routers"
-	"go_project_structure_be/servers"
+	"go_ci/configurations"
+	"go_ci/handler"
+	"go_ci/initial"
+	middlewares "go_ci/middleware"
+	"go_ci/routers"
+	"go_ci/servers"
 	"os"
 	"os/signal"
 	"syscall"

@@ -1,8 +1,8 @@
 package handler
 
 import (
-	"go_project_structure_be/servers"
-	"go_project_structure_be/service"
+	"go_ci/servers"
+	"go_ci/service"
 )
 
 type Handler struct {

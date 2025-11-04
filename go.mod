@@ -1,4 +1,4 @@
-module go_project_structure_be
+module go_ci
 
 go 1.25.1
 

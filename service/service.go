@@ -1,9 +1,9 @@
 package service
 
 import (
-	"go_project_structure_be/configurations"
-	"go_project_structure_be/repository"
-	"go_project_structure_be/servers"
+	"go_ci/configurations"
+	"go_ci/repository"
+	"go_ci/servers"
 )
 
 type service struct {

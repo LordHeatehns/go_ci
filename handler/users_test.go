@@ -9,8 +9,8 @@ import (
 	"github.com/gofiber/fiber/v2/log"
 	"github.com/stretchr/testify/assert"
 
-	"go_project_structure_be/handler"
-	"go_project_structure_be/service"
+	"go_ci/handler"
+	"go_ci/service"
 )
 
 func TestGetUsers_Success(t *testing.T) {

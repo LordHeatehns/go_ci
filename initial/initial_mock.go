@@ -1,6 +1,6 @@
 package initial
 
-import "go_project_structure_be/configurations"
+import "go_ci/configurations"
 
 func NewInitialMock(confs *configurations.Configs) Initial {
 	return initial{confs: confs}

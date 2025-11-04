@@ -1,7 +1,7 @@
 package service
 
 import (
-	"go_project_structure_be/responses"
+	"go_ci/responses"
 )
 
 func (s *service) GetUsers() (*responses.Users, error) {

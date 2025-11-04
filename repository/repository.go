@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"go_project_structure_be/servers"
+	"go_ci/servers"
 
 	"github.com/jmoiron/sqlx"
 )

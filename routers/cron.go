@@ -1,8 +1,8 @@
 package routers
 
 import (
-	"go_project_structure_be/handler"
-	"go_project_structure_be/servers"
+	"go_ci/handler"
+	"go_ci/servers"
 
 	"github.com/robfig/cron/v3"
 )

@@ -1,7 +1,7 @@
 package middlewares
 
 import (
-	"go_project_structure_be/configurations"
+	"go_ci/configurations"
 	"time"
 
 	"github.com/gofiber/fiber/v2"
