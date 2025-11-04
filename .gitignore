@@ -4,12 +4,9 @@ __debug_*
 test.py
 test.http
 logs/
-
 /logs
-
 vendor
 logs
-
 build.sh
 .env
 vendor/

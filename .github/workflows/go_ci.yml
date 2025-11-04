@@ -66,7 +66,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOKCER_USERNAME }}/go_ci:latest
-            ${{ secrets.DOKCER_USERNAME }}/go_ci:${{ github.sha }}
+            ${{ secrets.DOCKER_USERNAME }}/go_ci:latest
+            ${{ secrets.DOCKER_USERNAME }}/go_ci:${{ github.sha }}
 
         
