@@ -1,19 +1,20 @@
 FROM golang:1.24-alpine AS build
-# Allow go to retrieve the dependencies for the build step
-WORKDIR /go-modules
-RUN apk update && apk upgrade && apk add --no-cache git && apk add --no-cache ca-certificates
+WORKDIR /app
+
+RUN apk update && apk upgrade && apk add --no-cache git ca-certificates
 RUN update-ca-certificates
+
 COPY . ./
-# Compile the binary, we don't want to run the cgo resolver
 
 RUN echo "building for GOOS: $TARGETOS, GOARCH: $TARGETARCH"
-RUN CGO_ENABLED=0 go build -ldflags="-s -w" -tags timetzdata -mod=vendor -a -o go_ci
+RUN go mod tidy && go mod download
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -tags timetzdata -o go_ci
 
-# final stage
+# Final stage
 FROM scratch AS final
 WORKDIR /
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-COPY --from=build /go-modules/go_ci .
+COPY --from=build /app/go_ci ./
 COPY ./configurations /configurations
 
 ENV TZ=Asia/Bangkok
