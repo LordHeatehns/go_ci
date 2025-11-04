@@ -91,8 +91,6 @@ func GetToken(token string) (string, error) {
 	return token, nil
 }
 
-//ok
-
 // func Key(s string) string {
 // 	conf, err := configuration.LoadConfigFile()
 // 	if err != nil {
