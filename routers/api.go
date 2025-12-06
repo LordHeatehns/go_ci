@@ -10,6 +10,7 @@ import (
 type ApiRegistry interface {
 	// Authorization()
 	UsersAPi()
+	HealthCheck()
 }
 
 type apiRegistry struct {

@@ -38,6 +38,7 @@ func main() {
 
 	hand := handler.NewHandler(NewServer)
 	api := routers.NewapiRegistry(&hand, app, mw)
+	api.HealthCheck()
 	api.UsersAPi()
 	newCron := cron.New()
 
