@@ -19,7 +19,7 @@ import (
 )
 
 func main() {
-	//test
+	//test3
 	app := fiber.New()
 	conf, err := configurations.LoadConfigFile()
 	if err != nil {
