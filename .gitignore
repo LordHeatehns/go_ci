@@ -18,3 +18,4 @@ assets/licenses/*.jpg
 assets/licenses/*.png
 .dockerignore
 .vscode/
+.env
