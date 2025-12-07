@@ -1,3 +1,4 @@
+//spike/ — กระชากโหลดแบบทันที
 import http from "k6/http";
 import { spikeTestOptions } from "../utils/options.js";
 

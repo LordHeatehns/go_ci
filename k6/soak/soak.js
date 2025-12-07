@@ -1,3 +1,4 @@
+//soak/ — วัดความทนทานในระยะยาว
 import http from "k6/http";
 import { soakTestOptions } from "../utils/options.js";
 

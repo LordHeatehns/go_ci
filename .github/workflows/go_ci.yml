@@ -111,11 +111,10 @@ jobs:
   
   k6-test:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - uses: grafana/setup-k6-action@v1
       - uses: grafana/run-k6-action@v1
         with:
           path: |
-            ./k6/*.js
+            ./k6/**/*.js
