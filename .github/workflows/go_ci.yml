@@ -112,6 +112,29 @@ jobs:
   k6-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.25'
+
+      - name: Install Go dependencies
+        run: go mod tidy
+
+      - name: Start Fiber server
+        run: nohup go run main.go > server.log 2>&1 &
+
+      - name: Wait for server to be ready
+        run: |
+          for i in {1..20}; do
+            if curl -s http://localhost:8855/health > /dev/null; then
+              echo "Server is ready!"
+              exit 0
+            fi
+            echo "Waiting for server..."
+            sleep 1
+          done
+          echo "Server failed to start" && exit 1
+
       - uses: actions/checkout@v4
       - uses: grafana/setup-k6-action@v1
       - uses: grafana/run-k6-action@v1
