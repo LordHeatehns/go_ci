@@ -112,6 +112,7 @@ jobs:
   k6-test:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - name: Setup Go
         uses: actions/setup-go@v5
         with:
@@ -135,7 +136,6 @@ jobs:
           done
           echo "Server failed to start" && exit 1
 
-      - uses: actions/checkout@v4
       - uses: grafana/setup-k6-action@v1
       - uses: grafana/run-k6-action@v1
         with:
