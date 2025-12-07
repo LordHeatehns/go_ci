@@ -19,7 +19,6 @@ import (
 )
 
 func main() {
-	//test6ครับ
 	app := fiber.New()
 	conf, err := configurations.LoadConfigFile()
 	if err != nil {
