@@ -113,25 +113,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Install k6
-        run: sudo apt-get update && sudo apt-get install -y k6
-
-      - name: Run Smoke Test
-        run: k6 run k6/smoke/smoke.test.js
-
-      - name: Run Load Test
-        run: k6 run k6/load/load.test.js
-
-      - name: Run Stress Test
-        run: k6 run k6/stress/stress.test.js
-
-      - name: Run Spike Test
-        run: k6 run k6/spike/spike.test.js
-
-      - name: Run Soak Test
-        run: k6 run k6/soak/soak.test.js
-      
-
-
+      - uses: actions/checkout@v4
+      - uses: grafana/setup-k6-action@v1
+      - uses: grafana/run-k6-action@v1
+        with:
+          path: |
+            ./k6/*.js
